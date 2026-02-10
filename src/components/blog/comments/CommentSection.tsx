@@ -20,7 +20,7 @@ export default function CommentSection({ postSlug }: Props) {
     const q = query(
       collection(getFirebaseDb(), 'comments'),
       where('postSlug', '==', postSlug),
-      orderBy('createdAt', 'asc')
+      // orderBy('createdAt', 'asc')
     );
 
     const unsubscribe = onSnapshot(
