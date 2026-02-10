@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "check": "npm run check:astro",
@@ -46,6 +46,7 @@
     "astro-compress": "2.3.8",
     "js-yaml": "^4.1.0",
     "mdast-util-to-string": "^4.0.0",
+    "pagefind": "^1.4.0",
     "reading-time": "^1.5.0",
     "sharp": "0.34.3",
     "tailwind-merge": "^2.6.0",
