@@ -1,0 +1,42 @@
+---
+import Hero from '~/components/widgets/Hero.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'About',
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero tagline="About Me">
+    <Fragment slot="title">
+      Chris Eckert
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <p class="mb-4">
+        I'm a software developer based in Bend, Oregon. I've been building things
+        on the web for a long time, most recently working with Vue and Firebase. These days I'm
+        especially interested in what's happening with AI and how it's changing the way we build software.
+      </p>
+
+      <p class="mb-4">
+        Outside of code, I spend a lot of time thinking about healthspan -- how to stay sharp and
+        physically capable for as long as possible. That means paying attention to diet, exercise,
+        sleep, and mental health. I'm a big believer in the idea that optimizing for longevity and
+        optimizing for performance are mostly the same thing.
+      </p>
+
+      <p class="mb-4">
+        I'm also on a self-actualization kick. Lifelong learning, challenging comfort zones, trying to
+        be a little better than yesterday. Pretty typical nerd from the 80s who grew up on computers
+        and never stopped being curious.
+      </p>
+
+      <p>
+        This blog is where I write about all of it -- software, AI, health, mental models, and
+        whatever else I'm exploring. If any of that sounds interesting, stick around.
+      </p>
+    </Fragment>
+  </Hero>
+</Layout>

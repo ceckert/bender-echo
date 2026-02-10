@@ -1,0 +1,28 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+
+const metadata = {
+  title: 'Chris Eckert — Developer, Learner, 80s Kid',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero>
+    <Fragment slot="title">
+      Chris Eckert
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Developer, lifelong learner, and 80s kid. Writing about software, AI, healthspan, and the pursuit of self-actualization from Bend, Oregon.
+    </Fragment>
+  </Hero>
+
+  <BlogLatestPosts
+    title="Latest Posts"
+    information="Thoughts on software, AI, health, and whatever else I'm exploring."
+  />
+</Layout>
