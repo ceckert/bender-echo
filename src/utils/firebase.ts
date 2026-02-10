@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCk-b7hqiGPogqWYgOFSLefDxCIl4WQ0oU",
-  authDomain: "bender-echo.firebaseapp.com",
-  projectId: "bender-echo",
-  storageBucket: "bender-echo.firebasestorage.app",
-  messagingSenderId: "492711855104",
-  appId: "1:492711855104:web:29311d7dd0ef3f773484e5",
-  measurementId: "G-XFMF2RB7VL"
+  apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
+  authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
+  measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 function getFirebaseApp() {
