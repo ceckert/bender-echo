@@ -1,8 +1,13 @@
+import { useState } from 'preact/hooks';
+import type { User } from 'firebase/auth';
 import type { Comment } from './types';
+import CommentForm from './CommentForm';
 
 interface Props {
   comments: Comment[];
   loading: boolean;
+  user: User | null;
+  postSlug: string;
 }
 
 function timeAgo(date: Date): string {
@@ -17,7 +22,34 @@ function timeAgo(date: Date): string {
   return date.toLocaleDateString();
 }
 
-export default function CommentList({ comments, loading }: Props) {
+function CommentBubble({ comment }: { comment: Comment }) {
+  return (
+    <div class="flex gap-3">
+      {comment.authorAvatar && (
+        <img
+          src={comment.authorAvatar}
+          alt={comment.authorName}
+          class="w-10 h-10 rounded-full flex-shrink-0"
+        />
+      )}
+      <div class="flex-1 min-w-0">
+        <div class="flex items-baseline gap-2">
+          <span class="font-medium text-sm text-gray-900 dark:text-slate-200">
+            {comment.authorName}
+          </span>
+          <span class="text-xs text-gray-400 dark:text-slate-500">{timeAgo(comment.createdAt)}</span>
+        </div>
+        <p class="mt-1 text-gray-700 dark:text-slate-300 text-sm whitespace-pre-wrap break-words">
+          {comment.content}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function CommentList({ comments, loading, user, postSlug }: Props) {
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+
   if (loading) {
     return (
       <div class="space-y-4">
@@ -42,30 +74,55 @@ export default function CommentList({ comments, loading }: Props) {
     );
   }
 
+  const topLevel = comments.filter((c) => c.parentId === null);
+  const repliesByParent = new Map<string, Comment[]>();
+  for (const c of comments) {
+    if (c.parentId !== null) {
+      const existing = repliesByParent.get(c.parentId) || [];
+      existing.push(c);
+      repliesByParent.set(c.parentId, existing);
+    }
+  }
+
   return (
     <div class="space-y-6">
-      {comments.map((comment) => (
-        <div key={comment.id} class="flex gap-3">
-          {comment.authorAvatar && (
-            <img
-              src={comment.authorAvatar}
-              alt={comment.authorName}
-              class="w-10 h-10 rounded-full flex-shrink-0"
-            />
-          )}
-          <div class="flex-1 min-w-0">
-            <div class="flex items-baseline gap-2">
-              <span class="font-medium text-sm text-gray-900 dark:text-slate-200">
-                {comment.authorName}
-              </span>
-              <span class="text-xs text-gray-400 dark:text-slate-500">{timeAgo(comment.createdAt)}</span>
-            </div>
-            <p class="mt-1 text-gray-700 dark:text-slate-300 text-sm whitespace-pre-wrap break-words">
-              {comment.content}
-            </p>
+      {topLevel.map((comment) => {
+        const replies = repliesByParent.get(comment.id) || [];
+        return (
+          <div key={comment.id}>
+            <CommentBubble comment={comment} />
+
+            {user && (
+              <button
+                type="button"
+                onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                class="ml-13 mt-1 text-xs text-gray-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 transition"
+              >
+                {replyingTo === comment.id ? 'Cancel' : 'Reply'}
+              </button>
+            )}
+
+            {replyingTo === comment.id && user && (
+              <div class="ml-13 mt-2">
+                <CommentForm
+                  postSlug={postSlug}
+                  user={user}
+                  parentId={comment.id}
+                  onCancel={() => setReplyingTo(null)}
+                />
+              </div>
+            )}
+
+            {replies.length > 0 && (
+              <div class="ml-13 mt-4 space-y-4 border-l-2 border-gray-100 dark:border-slate-700 pl-4">
+                {replies.map((reply) => (
+                  <CommentBubble key={reply.id} comment={reply} />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
