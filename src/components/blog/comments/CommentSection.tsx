@@ -20,7 +20,7 @@ export default function CommentSection({ postSlug }: Props) {
     const q = query(
       collection(getFirebaseDb(), 'comments'),
       where('postSlug', '==', postSlug),
-      // orderBy('createdAt', 'asc')
+      orderBy('createdAt', 'asc')
     );
 
     const unsubscribe = onSnapshot(
@@ -29,6 +29,7 @@ export default function CommentSection({ postSlug }: Props) {
         const fetched: Comment[] = snapshot.docs.map((doc) => ({
           id: doc.id,
           postSlug: doc.data().postSlug,
+          parentId: doc.data().parentId ?? null,
           authorName: doc.data().authorName,
           authorAvatar: doc.data().authorAvatar,
           authorUid: doc.data().authorUid,
@@ -59,7 +60,7 @@ export default function CommentSection({ postSlug }: Props) {
           )}
         </h2>
 
-        <CommentList comments={comments} loading={loading} />
+        <CommentList comments={comments} loading={loading} user={user} postSlug={postSlug} />
 
         <div class="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700/50">
           {user ? (
