@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
@@ -18,6 +18,14 @@ function getFirebaseApp() {
 
 // Lazy getters — only initialize when accessed on the client side
 export const getFirebaseAuth = () => getAuth(getFirebaseApp());
-export const getFirebaseDb = () => getFirestore(getFirebaseApp());
+let _db: ReturnType<typeof initializeFirestore> | null = null;
+export const getFirebaseDb = () => {
+  if (!_db) {
+    _db = initializeFirestore(getFirebaseApp(), {
+      experimentalAutoDetectLongPolling: true,
+    });
+  }
+  return _db;
+};
 export const getGoogleProvider = () => new GoogleAuthProvider();
 export const getGithubProvider = () => new GithubAuthProvider();
