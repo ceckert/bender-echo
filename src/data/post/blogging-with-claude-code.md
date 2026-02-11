@@ -1,11 +1,12 @@
 ---
 publishDate: 2026-02-09T00:00:00Z
-title: 'Hello World, Again'
-excerpt: 'Dusting off the blog with a fresh start on Astro.'
+title: 'Hey Claude, update my blog'
+excerpt: 'Getting Claude code to dust off the blog with a fresh start on Astro.'
 category: General
 tags:
   - personal
   - astro
+  - ai
 ---
 
 It's been a while.

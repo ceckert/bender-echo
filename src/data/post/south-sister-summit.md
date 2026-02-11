@@ -1,5 +1,5 @@
 ---
-publishDate: 2025-09-15T00:00:00Z
+publishDate: 2025-09-24T00:00:00Z
 title: 'Summiting South Sister'
 excerpt: 'A September climb up the third-tallest peak in Oregon, right in my backyard.'
 image: '~/assets/images/hiking/south-sister-hero.jpg'
@@ -14,7 +14,7 @@ Living in Bend means South Sister is always on the horizon -- literally. At 10,3
 
 ## The Route
 
-I took the standard route from Devils Lake trailhead. It's roughly 12 miles round trip with about 4,900 feet of elevation gain. Not technical, but relentless. The trail is well-marked through the forest for the first couple of miles, then breaks into open volcanic terrain that just goes up and up.
+I took the standard route from Green Lakes trailhead. That's the long way. It's 17.75 miles round trip with about 5,400 feet of elevation gain. Not technical, but relentless. The trail is well-marked through the forest for the first couple of miles, then breaks into open volcanic terrain that just goes up and up.
 
 ![The trail through the volcanic terrain](~/assets/images/hiking/south-sister-trail.jpg)
 
